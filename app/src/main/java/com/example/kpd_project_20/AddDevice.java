@@ -1,6 +1,10 @@
 package com.example.kpd_project_20;
 
+import androidx.activity.result.ActivityResultLauncher;
+import androidx.activity.result.contract.ActivityResultContracts;
 import androidx.appcompat.app.AppCompatActivity;
+
+import android.app.Activity;
 import android.bluetooth.BluetoothManager;
 import android.bluetooth.BluetoothAdapter;
 import android.content.Intent;
@@ -11,25 +15,34 @@ import android.widget.Button;
 import android.widget.EditText;
 
 
+
 public class AddDevice extends AppCompatActivity {
+    private static final int REQUEST_ENABLE_BT = 0;
     EditText ssidInput, passwordInput;
-    BluetoothManager bluetoothManager;
+
     BluetoothAdapter bluetoothAdapter;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
-        bluetoothManager = getSystemService(BluetoothManager.class);
-        bluetoothAdapter = bluetoothManager.getAdapter();
-
         getSupportActionBar().hide();
+        Log.d("BT","1");
+        bluetoothAdapter = BluetoothAdapter.getDefaultAdapter();
+        Log.d("BT","2");
         Button cancal;
         Button apply;
+        Button connect;
+
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_add_device);
 
         cancal = findViewById(R.id.wifi_cancel_button);
         apply = findViewById(R.id.wifi_apply_button);
+        connect = findViewById(R.id.bt_connect_button);
 
+        if (!bluetoothAdapter.isEnabled()) {
+            Intent enableBtIntent = new Intent(BluetoothAdapter.ACTION_REQUEST_ENABLE);
+            startActivityForResult(enableBtIntent, REQUEST_ENABLE_BT);
+        }
 
         // setting onClickListener
         cancal.setOnClickListener(new View.OnClickListener() {
@@ -46,6 +59,15 @@ public class AddDevice extends AppCompatActivity {
                 applyAddDevice();
             }
         });
+        connect.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+
+
+
+
+            }
+        });
 
     }
 
@@ -57,5 +79,9 @@ public class AddDevice extends AppCompatActivity {
         password = passwordInput.getText().toString();
         Log.d("apply input (SSID)",ssid);
         Log.d("apply input (Password)",password );
+    }
+
+    private void connectButton(){
+
     }
 }
