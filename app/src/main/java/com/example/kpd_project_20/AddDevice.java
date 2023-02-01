@@ -1,6 +1,8 @@
 package com.example.kpd_project_20;
 
 import androidx.appcompat.app.AppCompatActivity;
+import android.bluetooth.BluetoothManager;
+import android.bluetooth.BluetoothAdapter;
 import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
@@ -11,8 +13,14 @@ import android.widget.EditText;
 
 public class AddDevice extends AppCompatActivity {
     EditText ssidInput, passwordInput;
+    BluetoothManager bluetoothManager;
+    BluetoothAdapter bluetoothAdapter;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
+        bluetoothManager = getSystemService(BluetoothManager.class);
+        bluetoothAdapter = bluetoothManager.getAdapter();
+
         getSupportActionBar().hide();
         Button cancal;
         Button apply;
