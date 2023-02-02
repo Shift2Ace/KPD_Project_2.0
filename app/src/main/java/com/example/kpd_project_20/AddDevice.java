@@ -19,14 +19,16 @@ import android.widget.EditText;
 public class AddDevice extends AppCompatActivity {
     private static final int REQUEST_ENABLE_BT = 0;
     EditText ssidInput, passwordInput;
-
     BluetoothAdapter bluetoothAdapter;
+    MyBluetoothService mBluetoothConnection;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         getSupportActionBar().hide();
         Log.d("BT","1");
         bluetoothAdapter = BluetoothAdapter.getDefaultAdapter();
+
         Log.d("BT","2");
         Button cancal;
         Button apply;
@@ -62,10 +64,7 @@ public class AddDevice extends AppCompatActivity {
         connect.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-
-
-
-
+                connectButton();
             }
         });
 
@@ -79,6 +78,7 @@ public class AddDevice extends AppCompatActivity {
         password = passwordInput.getText().toString();
         Log.d("apply input (SSID)",ssid);
         Log.d("apply input (Password)",password );
+
     }
 
     private void connectButton(){
