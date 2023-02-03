@@ -22,13 +22,12 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
-import android.bluetooth.BluetoothA2dp;
+
 
 
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.OutputStream;
-import java.nio.charset.StandardCharsets;
 import java.util.Set;
 import java.util.UUID;
 
@@ -41,7 +40,6 @@ public class AddDevice extends AppCompatActivity {
     String deviceName, deviceAddress;
     ConnectThread connectDevice;
     MyBluetoothService.ConnectedThread connectedDevice;
-    BluetoothA2dp btA2dp;
 
 
 
@@ -175,12 +173,15 @@ public class AddDevice extends AppCompatActivity {
                         return;
                     }
                 }
-                tmp = device.createRfcommSocketToServiceRecord(UUID.randomUUID());
+
+
+                tmp = device.createRfcommSocketToServiceRecord(UUID.fromString("00001101-0000-1000-8000-00805F9B34FB"));
                 Log.d("success", "tmp");
             } catch (IOException e) {
                 Log.e("TAG", "Socket's create() method failed", e);
             }
             mmSocket = tmp;
+            Log.d("debug", tmp.toString());
         }
 
         public void run() {
@@ -200,8 +201,9 @@ public class AddDevice extends AppCompatActivity {
                 // Connect to the remote device through the socket. This call blocks
                 // until it succeeds or throws an exception.
                 mmSocket.connect();
+                Log.d("success", "connected device");
             } catch (IOException connectException) {
-                // Unable to connect; close the socket and return.
+                Log.d("failed", "unable to connect device");
                 try {
                     mmSocket.close();
                 } catch (IOException closeException) {
