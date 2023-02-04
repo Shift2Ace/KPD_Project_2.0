@@ -101,9 +101,7 @@
             android:id="@+id/textView5"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="1. Connect device &quot;ATL Bluetooth&quot;\n
-            2. Click 'Connect'\n
-            3. Input SSID and password of your network" />
+            android:text="1. Pair device &quot;ATL Bluetooth&quot;\n2. Click 'Connect'\n3. Input SSID and password of your network\n4. Click &quot;APPLY&quot;"/>
 
     </LinearLayout>
 
