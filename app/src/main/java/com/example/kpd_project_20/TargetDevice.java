@@ -4,6 +4,7 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
@@ -12,11 +13,24 @@ import java.net.InetAddress;
 import java.net.UnknownHostException;
 
 public class TargetDevice extends AppCompatActivity {
-    Button cancal,apply;
+    Button cancal, apply;
     EditText targetName, targetPort, targetIP;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
-
+        new Thread(new Runnable() {
+            @Override
+            public void run() {
+                Boolean running = true;
+                while (running){
+                    if (UdpServer.connect_state){
+                        running = false;
+                        UdpServer.connect_state = false;
+                        cancalButton();
+                    }
+                }
+            }
+        }).start();
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_target_device);
 
@@ -32,8 +46,7 @@ public class TargetDevice extends AppCompatActivity {
             @Override
             public void onClick(View view) {
                 // create an intent to switch to second activity upon clicking
-                Intent intent = new Intent(TargetDevice.this,MainActivity.class);
-                startActivity(intent);
+                cancalButton();
             }
         });
 
@@ -50,8 +63,19 @@ public class TargetDevice extends AppCompatActivity {
     }
 
     private void applyButton() throws UnknownHostException {
-        udpService.udpPort = Integer.valueOf(targetPort.getText().toString());
-        udpService.addr = InetAddress.getByName(targetIP.getText().toString());
-        udpService.send(String.valueOf(UdpServer.UDP_SERVER_PORT));
+        try {
+            udpService.udpPort = Integer.valueOf(targetPort.getText().toString());
+            udpService.addr = InetAddress.getByName(targetIP.getText().toString());
+            udpService.send("UDP_Port: " + UdpServer.UDP_SERVER_PORT);
+        }catch (Exception e){
+
+        }
+
     }
+
+    public void cancalButton(){
+        Intent intent = new Intent(TargetDevice.this,MainActivity.class);
+        startActivity(intent);
+    }
+
 }
