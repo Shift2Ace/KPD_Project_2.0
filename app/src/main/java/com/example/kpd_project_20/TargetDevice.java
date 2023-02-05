@@ -50,9 +50,8 @@ public class TargetDevice extends AppCompatActivity {
     }
 
     private void applyButton() throws UnknownHostException {
-
-        udpService.udpPort = 2333;
-        udpService.addr = InetAddress.getByName("192.168.1.188");
-        udpService.send("test");
+        udpService.udpPort = Integer.valueOf(targetPort.getText().toString());
+        udpService.addr = InetAddress.getByName(targetIP.getText().toString());
+        udpService.send(String.valueOf(UdpServer.UDP_SERVER_PORT));
     }
 }
