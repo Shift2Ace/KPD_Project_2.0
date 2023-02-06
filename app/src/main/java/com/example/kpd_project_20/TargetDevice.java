@@ -66,7 +66,7 @@ public class TargetDevice extends AppCompatActivity {
         try {
             udpService.udpPort = Integer.valueOf(targetPort.getText().toString());
             udpService.addr = InetAddress.getByName(targetIP.getText().toString());
-            udpService.send("UDP_Port: " + UdpServer.UDP_SERVER_PORT);
+            udpService.send("UDP_Port:" + UdpServer.UDP_SERVER_PORT);
         }catch (Exception e){
 
         }
