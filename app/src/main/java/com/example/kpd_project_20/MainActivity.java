@@ -6,19 +6,41 @@ import androidx.appcompat.app.AppCompatActivity;
 import android.bluetooth.BluetoothAdapter;
 import android.content.Intent;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
+import android.widget.ImageView;
+
 
 
 
 public class MainActivity extends AppCompatActivity {
+    static ImageView view;
+    static String TAG = "Main Activity";
+    static Boolean updateImage = false;
+    private static byte[] imageData;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
         UdpServer.runUdpServer();
+        view = findViewById(R.id.imageView);
+        new Thread(new Runnable() {
+            @Override
+            public void run() {
+                while (true) {
+                    if (updateImage) {
+                        Bitmap bmp = BitmapFactory.decodeByteArray(imageData, 0, imageData.length);
+                        view.setImageBitmap(bmp);
+                        updateImage = false;
+                    }
+                }
+            }
+        }).start();
     }
 
     @Override
@@ -70,6 +92,8 @@ public class MainActivity extends AppCompatActivity {
         }
         return(haveBT);
     }
-
-
+    public static void imageWrite(byte[] data){
+        imageData = data;
+        updateImage = true;
+    }
 }

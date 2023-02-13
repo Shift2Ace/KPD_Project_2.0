@@ -1,5 +1,7 @@
 package com.example.kpd_project_20;
 
+import static android.app.ProgressDialog.show;
+
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.Intent;
@@ -8,6 +10,7 @@ import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.Toast;
 
 import java.net.InetAddress;
 import java.net.UnknownHostException;
@@ -24,6 +27,8 @@ public class TargetDevice extends AppCompatActivity {
                 Boolean running = true;
                 while (running){
                     if (UdpServer.connect_state){
+                        Toast.makeText(getApplicationContext(), "Device Added",
+                                Toast.LENGTH_LONG).show();
                         running = false;
                         UdpServer.connect_state = false;
                         cancalButton();
