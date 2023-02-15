@@ -16,33 +16,40 @@ import android.widget.ImageView;
 
 
 
-
 public class MainActivity extends AppCompatActivity {
-    static ImageView view;
+
+    ImageView view;
     static String TAG = "Main Activity";
     static Boolean updateImage = false;
     private static byte[] imageData;
+    Bitmap bmp;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
         UdpServer.runUdpServer();
-        view = findViewById(R.id.imageView);
+
         new Thread(new Runnable() {
             @Override
             public void run() {
-                while (true) {
-                    if (updateImage) {
-                        Bitmap bmp = BitmapFactory.decodeByteArray(imageData, 0, imageData.length);
-                        view.setImageBitmap(bmp);
-                        updateImage = false;
+                while (true){
+                    if (updateImage){
+                        view = findViewById(R.id.imageView);
+                        bmp = BitmapFactory.decodeByteArray(imageData, 0, imageData.length);
+                        MainActivity.this.runOnUiThread(new Runnable() {
+                            @Override
+                            public void run() {
+                                view.setImageBitmap(bmp);
+                            }
+                        });
+
                     }
                 }
             }
         }).start();
     }
-
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         MenuInflater inflater = getMenuInflater();

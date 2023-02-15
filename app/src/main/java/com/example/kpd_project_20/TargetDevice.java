@@ -21,6 +21,7 @@ public class TargetDevice extends AppCompatActivity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
+        getSupportActionBar().hide();
         new Thread(new Runnable() {
             @Override
             public void run() {
