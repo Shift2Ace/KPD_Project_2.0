@@ -38,6 +38,7 @@ public class UdpServer {
                                 Log.i(TAG, "data receive : UDP_OK");
                                 Log.d(TAG,"Connect Successfully");
                                 connect_state = true;
+                                ATL.ipAddress = udpService.addr.toString();
                                 return;
                             default:
                                 if (dp.getLength() == 1460 &&

@@ -3,7 +3,7 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:layout_height="wrap_content"
+    android:layout_height="match_parent"
     tools:context=".MainActivity">
 
     <ImageView
@@ -50,7 +50,7 @@
                         android:layout_height="wrap_content" />
 
                     <Button
-                        android:id="@+id/button2"
+                        android:id="@+id/button_up"
                         android:layout_width="50dp"
                         android:layout_height="50dp"
                         android:insetLeft="6dp"
@@ -67,7 +67,7 @@
                     android:layout_height="match_parent">
 
                     <Button
-                        android:id="@+id/button5"
+                        android:id="@+id/button_left"
                         android:layout_width="50dp"
                         android:layout_height="50dp"
                         android:insetLeft="6dp"
@@ -78,7 +78,7 @@
                         android:layout_height="wrap_content" />
 
                     <Button
-                        android:id="@+id/button4"
+                        android:id="@+id/button_right"
                         android:layout_width="50dp"
                         android:layout_height="50dp"
                         android:insetLeft="6dp"
@@ -95,7 +95,7 @@
                         android:layout_height="wrap_content" />
 
                     <Button
-                        android:id="@+id/button7"
+                        android:id="@+id/button_down"
                         android:layout_width="50dp"
                         android:layout_height="50dp"
                         android:insetLeft="6dp"
@@ -118,17 +118,21 @@
                 android:layout_height="match_parent"
                 android:orientation="vertical">
 
+                <Space
+                    android:layout_width="match_parent"
+                    android:layout_height="21dp" />
+
                 <Button
                     android:id="@+id/button8"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:text="Auto Track Off" />
+                    android:text="Auto Track On" />
 
                 <Button
-                    android:id="@+id/button9"
+                    android:id="@+id/button_musicMode"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:text="Music Mode Off" />
+                    android:text="Music Mode On" />
 
             </LinearLayout>
 
@@ -142,8 +146,8 @@
 
     <LinearLayout
         android:id="@+id/linearLayout3"
-        android:layout_width="350dp"
-        android:layout_height="66dp"
+        android:layout_width="346dp"
+        android:layout_height="wrap_content"
         android:layout_marginTop="15dp"
         android:orientation="vertical"
         app:layout_constraintEnd_toEndOf="parent"
@@ -151,25 +155,54 @@
         app:layout_constraintTop_toBottomOf="@+id/linearLayout2">
 
         <TextView
-            android:id="@+id/textView2"
+            android:id="@+id/tv_brightness"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:text="Brightness (off)" />
 
-        <SeekBar
-            android:id="@+id/seekBar3"
+        <LinearLayout
             android:layout_width="match_parent"
-            android:layout_height="wrap_content" />
+            android:layout_height="match_parent"
+            android:orientation="horizontal">
+
+            <SeekBar
+                android:id="@+id/sb_brightness"
+                android:layout_width="241dp"
+                android:layout_height="match_parent"
+                android:max="255"
+                android:min="1" />
+
+            <Space
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_weight="1" />
+
+            <Button
+                android:id="@+id/button_lightOff"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="LED off" />
+        </LinearLayout>
+
     </LinearLayout>
 
     <TextView
         android:id="@+id/textView6"
-        android:layout_width="319dp"
-        android:layout_height="98dp"
+        android:layout_width="310dp"
+        android:layout_height="25dp"
         android:layout_marginTop="20dp"
         android:text="Information :"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/linearLayout3" />
+
+    <TextView
+        android:id="@+id/info_context"
+        android:layout_width="260dp"
+        android:layout_height="wrap_content"
+        android:text="IP Address : \nAngle X : \nAngle Y : "
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/textView6" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

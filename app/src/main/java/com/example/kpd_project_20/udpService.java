@@ -13,23 +13,25 @@ public class udpService {
     private static DatagramSocket ds = null;
 
     public static void send(String message){
-        byte[] bytes = message.getBytes();
-        Log.d("Debug",addr.toString());
-        Log.d("Debug", String.valueOf(udpPort));
-        Thread thread = new Thread(new Runnable(){
-            @Override public void run() {
-                try {
-                    ds = new DatagramSocket();
-                    DatagramPacket packet = new DatagramPacket(bytes,bytes.length,addr,udpPort);
-                    ds.send(packet);
-                    Log.d("Message send",message);
+        if (addr != null) {
+            byte[] bytes = message.getBytes();
+            Log.d("Debug", addr.toString());
+            Log.d("Debug", String.valueOf(udpPort));
+            Thread thread = new Thread(new Runnable() {
+                @Override
+                public void run() {
+                    try {
+                        ds = new DatagramSocket();
+                        DatagramPacket packet = new DatagramPacket(bytes, bytes.length, addr, udpPort);
+                        ds.send(packet);
+                        Log.d("Message send", message);
+                    } catch (IOException e) {
+                        Log.d("error", e.toString());
+                    }
                 }
-                catch (IOException e) {
-                    Log.d("error",e.toString());
-                }
-            }
-        });
-        thread.start();
+            });
+            thread.start();
+        }
     }
 
 }
