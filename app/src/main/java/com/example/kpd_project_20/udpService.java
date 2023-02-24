@@ -8,11 +8,12 @@ import java.net.DatagramSocket;
 import java.net.InetAddress;
 
 public class udpService {
-    public static int udpPort;
-    public static InetAddress addr;
+    public static int udpPort = 0;
+    public static InetAddress addr = null;
     private static DatagramSocket ds = null;
 
     public static void send(String message){
+        Log.d("",udpService.addr.toString());
         if (addr != null) {
             byte[] bytes = message.getBytes();
             Log.d("Debug", addr.toString());

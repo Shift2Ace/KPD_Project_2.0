@@ -28,8 +28,6 @@ public class TargetDevice extends AppCompatActivity {
                 Boolean running = true;
                 while (running){
                     if (UdpServer.connect_state){
-                        Toast.makeText(getApplicationContext(), "Device Added",
-                                Toast.LENGTH_LONG).show();
                         running = false;
                         UdpServer.connect_state = false;
                         cancalButton();
@@ -73,6 +71,7 @@ public class TargetDevice extends AppCompatActivity {
             udpService.udpPort = Integer.valueOf(targetPort.getText().toString());
             udpService.addr = InetAddress.getByName(targetIP.getText().toString());
             udpService.send("UDP_Port:" + UdpServer.UDP_SERVER_PORT);
+            Log.d("",udpService.addr.toString());
         }catch (Exception e){
 
         }

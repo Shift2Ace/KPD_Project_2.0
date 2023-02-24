@@ -29,7 +29,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     Bitmap bmp;
     Button b_up, b_down, b_left, b_right, b_music, b_lightOff;
     SeekBar sb_brightness;
-    TextView tv_brightness;
+    TextView tv_brightness, info;
 
 
 
@@ -38,7 +38,6 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
         UdpServer.runUdpServer();
-
         new Thread(new Runnable() {
             @Override
             public void run() {
@@ -66,6 +65,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         b_lightOff = findViewById(R.id.button_lightOff);
         tv_brightness = (TextView)findViewById(R.id.tv_brightness);
         sb_brightness = (SeekBar)findViewById(R.id.sb_brightness);
+        info = findViewById(R.id.info_context);
 
         b_up.setOnClickListener(this);
         b_down.setOnClickListener(this);
@@ -155,45 +155,54 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     public void onClick(View v) {
         switch (v.getId()){
             case R.id.button_up:
-                ATL.angleY += 5;
-                if (ATL.angleY > 180){
-                    ATL.angleY = 180;
+                ATL.angleY -= 5;
+                if (ATL.angleY < 60){
+                    ATL.angleY = 60;
                 }
+                update();
                 Log.d(TAG,"Up button : "+ATL.angleY);
                 udpService.send("Servo_Y:"+ATL.angleY);
                 break;
             case R.id.button_down:
-                ATL.angleY -= 5;
-                if (ATL.angleY < 0){
-                    ATL.angleY = 0;
+                ATL.angleY += 5;
+                if (ATL.angleY > 120){
+                    ATL.angleY = 120;
                 }
+                update();
                 Log.d(TAG,"Down button : "+ATL.angleY);
                 udpService.send("Servo_Y:"+ATL.angleY);
                 break;
             case R.id.button_left:
-                ATL.angleX -= 5;
-                if (ATL.angleX < 0){
-                    ATL.angleX = 0;
+                ATL.angleX += 5;
+                if (ATL.angleX > 135){
+                    ATL.angleX = 135;
                 }
+                update();
                 Log.d(TAG,"Left button : "+ATL.angleX);
                 udpService.send("Servo_X:"+ATL.angleX);
                 break;
             case R.id.button_right:
-                ATL.angleX += 5;
-                if (ATL.angleX > 180){
-                    ATL.angleX = 180;
+                ATL.angleX -= 5;
+                if (ATL.angleX < 45){
+                    ATL.angleX = 45;
                 }
+                update();
                 Log.d(TAG,"Right button : "+ATL.angleX);
                 udpService.send("Servo_X:"+ATL.angleX);
                 break;
             case R.id.button_musicMode:
                 Log.d(TAG,"Music mode button");
+                update();
                 break;
             case R.id.button_lightOff:
+                update();
                 Log.d(TAG,"Light off button");
                 udpService.send("LED_L:"+0);
                 tv_brightness.setText("Brightness (off)");
                 break;
         }
+    }
+    public void update(){
+        info.setText("IP Address : "+ATL.ipAddress+"\nAngle X : "+ATL.angleX+"\nAngle Y : "+ATL.angleY);
     }
 }
