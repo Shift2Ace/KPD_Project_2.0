@@ -13,7 +13,6 @@ public class udpService {
     private static DatagramSocket ds = null;
 
     public static void send(String message){
-        Log.d("",udpService.addr.toString());
         if (addr != null) {
             byte[] bytes = message.getBytes();
             Log.d("Debug", addr.toString());

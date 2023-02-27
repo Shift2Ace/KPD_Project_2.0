@@ -79,13 +79,13 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
             public void onProgressChanged(SeekBar seekBar, int progress, boolean fromUser) {
                 Log.d(TAG,"Seekbar change : "+progress);
                 ATL.brightness = progress;
-                udpService.send("LED_L:"+progress);
+                udpService.send("LED_Light_B:"+progress);
                 tv_brightness.setText("Brightness ("+progress+"/255)");
             }
 
             @Override
             public void onStartTrackingTouch(SeekBar seekBar) {
-                udpService.send("LED_L:"+ATL.brightness);
+                udpService.send("LED_Light_B:"+ATL.brightness);
             }
 
             @Override
@@ -161,7 +161,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                 }
                 update();
                 Log.d(TAG,"Up button : "+ATL.angleY);
-                udpService.send("Servo_Y:"+ATL.angleY);
+                udpService.send("Servo_Y_Ang:"+ATL.angleY);
                 break;
             case R.id.button_down:
                 ATL.angleY += 5;
@@ -170,7 +170,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                 }
                 update();
                 Log.d(TAG,"Down button : "+ATL.angleY);
-                udpService.send("Servo_Y:"+ATL.angleY);
+                udpService.send("Servo_Y_Ang:"+ATL.angleY);
                 break;
             case R.id.button_left:
                 ATL.angleX += 5;
@@ -179,7 +179,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                 }
                 update();
                 Log.d(TAG,"Left button : "+ATL.angleX);
-                udpService.send("Servo_X:"+ATL.angleX);
+                udpService.send("Servo_X_Ang:"+ATL.angleX);
                 break;
             case R.id.button_right:
                 ATL.angleX -= 5;
@@ -188,7 +188,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                 }
                 update();
                 Log.d(TAG,"Right button : "+ATL.angleX);
-                udpService.send("Servo_X:"+ATL.angleX);
+                udpService.send("Servo_X_Ang:"+ATL.angleX);
                 break;
             case R.id.button_musicMode:
                 Log.d(TAG,"Music mode button");
@@ -197,7 +197,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
             case R.id.button_lightOff:
                 update();
                 Log.d(TAG,"Light off button");
-                udpService.send("LED_L:"+0);
+                udpService.send("LED_Light_B:"+0);
                 tv_brightness.setText("Brightness (off)");
                 break;
         }
